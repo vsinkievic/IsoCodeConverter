@@ -25,9 +25,9 @@
 	</dependencies>
 
     <scm>
-        <developerConnection>git@github.com:vsinkievic/IsoCodeConverter.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com:vsinkievic/IsoCodeConverter.git</developerConnection>
         <tag>0.0.1-SNAPSHOT</tag>
-        <url>git@github.com:vsinkievic/IsoCodeConverter.git</url>
+        <url>scm:git:ssh://git@github.com:vsinkievic/IsoCodeConverter.git</url>
     </scm>
     <distributionManagement>
         <repository>
