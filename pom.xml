@@ -23,5 +23,23 @@
 		    <scope>test</scope>
 		</dependency>
 	</dependencies>
+
+    <scm>
+        <developerConnection>git@github.com:vsinkievic/IsoCodeConverter.git</developerConnection>
+        <tag>0.0.1-SNAPSHOT</tag>
+        <url>git@github.com:vsinkievic/IsoCodeConverter.git</url>
+    </scm>
+    <distributionManagement>
+        <repository>
+            <id>mbuilder.sinkievic.lt</id>
+            <name>mbuilder.sinkievic.lt-releases</name>
+            <url>http://192.168.11.5:8081/artifactory/BPMID-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>mbuilder.sinkievic.lt</id>
+            <name>mbuilder.sinkievic.lt-snapshots</name>
+            <url>http://192.168.11.5:8081/artifactory/BPMID-dev</url>
+        </snapshotRepository>
+    </distributionManagement>
 	
 </project>
