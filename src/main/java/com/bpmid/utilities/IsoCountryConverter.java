@@ -16,6 +16,9 @@ public class IsoCountryConverter {
 		if (!wasInitialized)
 			init();
 		
+		if (_isBlank(code))
+			return code;
+		
 		return findCountry(code)
 				.orElseThrow(() -> new RuntimeException(String.format("Failed to find country by string '%s'", code)))
 				.getAlfa2Code();
@@ -23,7 +26,10 @@ public class IsoCountryConverter {
 	public static String toAlfa3Code(String code) {
 		if (!wasInitialized)
 			init();
-		
+
+		if (_isBlank(code))
+			return code;
+
 		return findCountry(code)
 				.orElseThrow(() -> new RuntimeException(String.format("Failed to find country by string '%s'", code)))
 				.getAlfa3Code();
@@ -32,6 +38,9 @@ public class IsoCountryConverter {
 		if (!wasInitialized)
 			init();
 		
+		if (_isBlank(code))
+			return code;
+		
 		return findCountry(code)
 				.orElseThrow(() -> new RuntimeException(String.format("Failed to find country by string '%s'", code)))
 				.getNumericCode();
@@ -39,6 +48,9 @@ public class IsoCountryConverter {
 	public static String toCountryName(String code) {
 		if (!wasInitialized)
 			init();
+		
+		if (_isBlank(code))
+			return code;
 		
 		return findCountry(code)
 				.orElseThrow(() -> new RuntimeException(String.format("Failed to find country by string '%s'", code)))
@@ -58,6 +70,19 @@ public class IsoCountryConverter {
 		}
 		wasInitialized = true;
 	}
+	
+	private static boolean _isBlank(final CharSequence cs) {
+        int strLen;
+        if (cs == null || (strLen = cs.length()) == 0) {
+            return true;
+        }
+        for (int i = 0; i < strLen; i++) {
+            if (Character.isWhitespace(cs.charAt(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
 	
 	private static Set<Country> initCountries(){
 		HashSet<Country> countries = new HashSet<Country>();
