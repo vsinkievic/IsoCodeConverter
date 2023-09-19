@@ -12,6 +12,12 @@ public class IsoCountryConverter {
 	private static HashMap<String, Country> byNumericCode;
 	private static boolean wasInitialized = false;
 	
+	public static boolean isCountryCode(String code) {
+		Optional<Country> country = findCountry(code);
+		
+		return country.isPresent();
+	}
+	
 	public static String toAlfa2Code(String code) {
 		if (!wasInitialized)
 			init();
@@ -160,7 +166,7 @@ public class IsoCountryConverter {
 		countries.add(new Country("GS", "SGS", "239", "South Georgia and the South Sandwich Islands              "));
 		countries.add(new Country("FJ", "FJI", "242", "Fiji                                                      "));
 		countries.add(new Country("FI", "FIN", "246", "Finland                                                   "));
-		countries.add(new Country("AX", "ALA", "248", "Åland Islands                                             "));
+		countries.add(new Country("AX", "ALA", "248", "ï¿½land Islands                                             "));
 		countries.add(new Country("FR", "FRA", "250", "France                                                    "));
 		countries.add(new Country("GF", "GUF", "254", "French Guiana                                             "));
 		countries.add(new Country("PF", "PYF", "258", "French Polynesia                                          "));
@@ -269,11 +275,11 @@ public class IsoCountryConverter {
 		countries.add(new Country("TL", "TLS", "626", "Timor-Leste                                               "));
 		countries.add(new Country("PR", "PRI", "630", "Puerto Rico                                               "));
 		countries.add(new Country("QA", "QAT", "634", "Qatar                                                     "));
-		countries.add(new Country("RE", "REU", "638", "Réunion                                                   "));
+		countries.add(new Country("RE", "REU", "638", "Rï¿½union                                                   "));
 		countries.add(new Country("RO", "ROU", "642", "Romania                                                   "));
 		countries.add(new Country("RU", "RUS", "643", "Russian Federation (the)                                  "));
 		countries.add(new Country("RW", "RWA", "646", "Rwanda                                                    "));
-		countries.add(new Country("BL", "BLM", "652", "Saint Barthélemy                                          "));
+		countries.add(new Country("BL", "BLM", "652", "Saint Barthï¿½lemy                                          "));
 		countries.add(new Country("SH", "SHN", "654", "Saint Helena, Ascension and Tristan da Cunha              "));
 		countries.add(new Country("KN", "KNA", "659", "Saint Kitts and Nevis                                     "));
 		countries.add(new Country("AI", "AIA", "660", "Anguilla                                                  "));
@@ -340,7 +346,10 @@ public class IsoCountryConverter {
 		return countries;
 	}
 	
-	private static Optional<Country> findCountry(String code){
+	public static Optional<Country> findCountry(String code){
+		if (!wasInitialized)
+			init();
+		
 		String upperCode = null;
 		
 		switch(determineType(code)) {
@@ -368,26 +377,30 @@ public class IsoCountryConverter {
 		}
 	}
 	
-	private static CodeType determineType(String code) {
+	public static CodeType determineType(String code) {
+		
+		if (!wasInitialized)
+			init();
 		
 		if (code == null || code.isEmpty())
 			return CodeType.UNRECOGNIZED;
+		
 		switch (code.length()) {
 		case 2:
-			return CodeType.ALFA2;
+			if (code.matches("^[A-Za-z]{2}$"))
+				return CodeType.ALFA2;
+			else
+				return CodeType.UNRECOGNIZED;
 		case 3:
-			if (code.matches("[0-9]+"))
+			if (code.matches("^[0-9]{3}$"))
 				return CodeType.NUMERIC;
-			else 
+			else if (code.matches("^[A-Za-z]{3}$"))
 				return CodeType.ALFA3;
+			else
+				return CodeType.UNRECOGNIZED;
+			
 			default:
 				return CodeType.UNRECOGNIZED;
 		}
-	}
-	private enum CodeType {
-		ALFA2,
-		ALFA3,
-		NUMERIC,
-		UNRECOGNIZED;
 	}
 }

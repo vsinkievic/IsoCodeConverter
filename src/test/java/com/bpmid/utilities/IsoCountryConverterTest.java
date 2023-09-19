@@ -42,4 +42,44 @@ public class IsoCountryConverterTest {
 
 	}
 
+	@Test
+	public void testRecognizeCodeType() {
+		assertEquals(CodeType.ALFA2,        IsoCountryConverter.determineType("LT"));
+		assertEquals(CodeType.ALFA2,        IsoCountryConverter.determineType("lt"));
+		assertEquals(CodeType.ALFA2,        IsoCountryConverter.determineType("AA"));
+		
+		assertEquals(CodeType.ALFA3,        IsoCountryConverter.determineType("LTU"));
+		assertEquals(CodeType.ALFA3,        IsoCountryConverter.determineType("ltu"));
+		assertEquals(CodeType.ALFA3,        IsoCountryConverter.determineType("aaa"));
+		
+		assertEquals(CodeType.NUMERIC,      IsoCountryConverter.determineType("440"));
+		assertEquals(CodeType.NUMERIC,      IsoCountryConverter.determineType("123"));
+		
+		assertEquals(CodeType.UNRECOGNIZED, IsoCountryConverter.determineType("L1"));
+		assertEquals(CodeType.UNRECOGNIZED, IsoCountryConverter.determineType("lt2"));
+		assertEquals(CodeType.UNRECOGNIZED, IsoCountryConverter.determineType(""));
+		assertEquals(CodeType.UNRECOGNIZED, IsoCountryConverter.determineType(null));
+	}
+	
+	@Test
+	public void testIsCountryCode() {
+		assertTrue(IsoCountryConverter.isCountryCode("LT"));
+		assertTrue(IsoCountryConverter.isCountryCode("lt"));
+		assertTrue(IsoCountryConverter.isCountryCode("LTU"));
+		assertTrue(IsoCountryConverter.isCountryCode("ltu"));
+		assertTrue(IsoCountryConverter.isCountryCode("440"));
+		
+		assertFalse(IsoCountryConverter.isCountryCode("AA"));
+		assertFalse(IsoCountryConverter.isCountryCode("AAA"));
+		assertFalse(IsoCountryConverter.isCountryCode("123"));
+		
+		assertFalse(IsoCountryConverter.isCountryCode("L1"));
+		assertFalse(IsoCountryConverter.isCountryCode("LT1"));
+		assertFalse(IsoCountryConverter.isCountryCode("123"));
+		assertFalse(IsoCountryConverter.isCountryCode("LL"));
+		assertFalse(IsoCountryConverter.isCountryCode("LLL"));
+		assertFalse(IsoCountryConverter.isCountryCode("LLLL"));
+		assertFalse(IsoCountryConverter.isCountryCode(""));
+		assertFalse(IsoCountryConverter.isCountryCode(null));
+	}
 }
