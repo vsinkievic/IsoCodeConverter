@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.bpmid</groupId>
   <artifactId>iso-code-converter</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.2-SNAPSHOT</version>
   <name>IsoCodeConverter</name>
   
   
@@ -26,7 +26,7 @@
 
     <scm>
         <developerConnection>scm:git:ssh://git@github.com/vsinkievic/IsoCodeConverter.git</developerConnection>
-        <tag>iso-code-converter-0.1.1</tag>
+        <tag>0.0.1-SNAPSHOT</tag>
         <url>scm:git:ssh://git@github.com/vsinkievic/IsoCodeConverter.git</url>
     </scm>
     <distributionManagement>
